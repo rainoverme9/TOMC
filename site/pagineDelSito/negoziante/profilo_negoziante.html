@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> TOMC | Profilo</title>
+
+        <!--Link stile -->
+        <!--<link rel="stylesheet" href="./stili/P13_stile.css">-->
+        <link rel="stylesheet" href="../../stili/negoziante/negoziante_stile.css">
+
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Sen:wght@400;700;800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+        <!-- GOOGLE FONTS -->
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;700;900&display=swap" rel="stylesheet">
+        <!-- OWL CAROUSEL -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" />
+        <!-- BOX ICONS -->
+        <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+        <link rel="shortcut icon" href="../../immagini/shortcutIcon.png">
+        
+    </head>
+    <body>
+        <button id="buttonTornaSu" type="button" class="btn btn-secondary"><i class="fas fa-long-arrow-alt-up"></i></button>
+
+        <!-- Pagina che esce al click su film con info -->    
+        <div class="informazioniFilm" id="informazioniFilm">
+            
+        </div>
+
+        <!-- NAVBAR -->
+        <nav class="navbar navbar-expand-sm sticky-top" style="background-color: black;">
+            <div class="container-fluid">
+                <a class="navbar-brand" style="color: oldlace;" onclick="window.location.assign('./home_negoziante.html');"><img src="../../immagini/navbarIcon.png"> </a>
+                <div id="iconeASx">                     
+                    <span id="spanRicerca"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalRicerca" onclick="cancellaDatiRicerca()"><i class="fa fa-search"></i></button></span>
+                    <button class="btn btn-primary" name="logOut" data-toggle="tooltip" data-placement="right" title="Esci" onclick="esci()"><i class="fas fa-sign-out-alt" ></i>LogOut</button>
+                </div>
+            </div>
+        </nav>    
+        
+        <!-- SIDEBAR -->
+        <div class="icon-bar">
+            <div class="contenitore-icone">
+                <a href="./home_negoziante.html" id="defaultOpenMenu" data-toggle="tooltip" data-placement="right" title="Home"><i class="fa fa-home " ></i></a>
+                <a href="./aggiungiFilm_negoziante.html" data-toggle="tooltip" data-placement="right" title="Filtra per generi"><i class="fas fa-plus " ></i></a>
+                <a href="./profilo_negoziante.html" data-toggle="tooltip" data-placement="right" title="Profilo"><i class="fa fa-user " style="color:oldlace"></i></a>
+            </div>
+        </div>
+
+        <div class="contenitore-margine">
+            <!--RICERCA MODAL -->
+            <div class="modal fade" id="modalRicerca" tabindex="-1" aria-labelledby="modalRicercaLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl">
+                    <div class="modal-content bg-dark text-white">
+                        <div class="modal-header" style="border-bottom: 0px;">
+                            <h5 class="modal-title" id="SearchModalLabel">Ricerca Avanzata</h5>
+                            <i class="fas fa-times" style="color: #fba304" class="btn-close" data-dismiss="modal" aria-label="Close"></i>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container">
+                                <div class="form-row" style="display: flex; justify-content: center;">
+                                    <div class="form-group ">
+                                        <select class="form-control" onchange="showForm()" id="qualeRicerca">  <!--mostra registrazione cliente o negoziante-->
+                                            <option value="0">Per Titolo</option>
+                                            <option value="1">Per Attore</option>
+                                            <option value="3">Per Genere</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <section id="section_0">
+                                <form class="d-flex" style="justify-content: center;" id="formRicerca">
+                                    <input class="form-control me-2"  id="searchFilm" type="text" placeholder="Search for a movie..." aria-label="Search" style="width: 17.5rem; margin-top: 1rem; margin-bottom: 2rem;">
+                                </form>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" onclick="cercaFilm()" id="ffilmm" >Cerca</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </section>
+                            <section id="section_1" style="display: none;">
+                                <form class="d-flex" style="justify-content: center;"id="formRicerca2" style="margin-bottom: 2rem;">
+                                    <input class="form-control me-2"  id="searchAttore" type="text" placeholder="Search for a person..." aria-label="Search" style="width: 17.5rem; margin-top: 1rem; margin-bottom: 2rem;">
+                                </form>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" onclick="cercaAttore()" id="aattorii">Cerca</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </section>
+                            <section id="section_3"style="display: none;">
+                                <div class="container">
+                                    <div class="form-row" style="display: flex; justify-content: center;">
+                                        <div class="form-group ">
+                                            <select class="form-control"  size="1" aria-label="size 3 select example" id="select_genere" style="margin-bottom: 2rem;" >  <!--mostra registrazione cliente o negoziante-->
+                                                
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="mostroGeneri()" id="ggenerii" >Cerca</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </section>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MODAL PER LA VENDITA E IL NOLEGGIO, Inserimento prezzi -->
+            <div class="modal fade" id="modalVenditaNoleggio" tabindex="-1" aria-labelledby="modalVenditaNoleggioLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                        <i class="fas fa-times" style="color: #fba304" class="btn-close" data-dismiss="modal" aria-label="Close"></i>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="card mb-3" style="max-width: 740px;">
+                            <div class="row no-gutters">
+                            <div class="col-md-6">
+                                <div id="posterAcquisto">
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card-body">
+                                
+                                    <div class="form-row" style="display: flex; justify-content: center; flex-direction: column; align-content: center">
+                                        <h3 id="titoloAcquisto">
+
+                                        </h3>
+                                        <div id="inseriscoValori">
+                                            <div class="container" style="margin-top: 1rem;">
+                                                <p class="font">Scegli il prezzo di acquisto </p>                                                      
+                                                <div class="input-group mb-2">
+                                                    <input type="number" class="form-control" id="inputDecinePrezzoAcquisto" min="0" >
+                                                    <div class="invalid-feedback" id="messaggioDecinePrezzoAcquisto">
+                                                    
+                                                    </div>
+                                                    <span class="input-group-text">,</span>
+                                                    <input type="number" class="form-control" id="inputDecimaliPrezzoAcquisto" min="0" >
+                                                    <div class="invalid-feedback" id="messaggioDecimaliPrezzoAcquisto">
+                                                    
+                                                    </div>
+                                                  <span class="input-group-text">€</span>
+                                                </div>
+                                                <p class="font">Scegli il prezzo di noleggio </p>                                                       
+                                                <div class="input-group mb-2">
+                                                    <input type="number" class="form-control"id="inputDecinePrezzoNoleggio" min="0">
+                                                    <div class="invalid-feedback" id="messaggioDecinePrezzoNoleggio">
+                                                    
+                                                    </div>
+                                                    <span class="input-group-text">,</span>
+                                                    <input type="number" class="form-control" id="inputDecimaliPrezzoNoleggio" min="0">
+                                                    <div class="invalid-feedback" id="messaggioDecimaliPrezzoNoleggio">
+                                                    
+                                                    </div>
+                                                    <span class="input-group-text">€</span>
+                                                </div> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer"  id="bottoneVendita">
+                       
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <!-- MODAL ELIMINAZIONE ACCOUNT -->
+            <div class="modal fade" id="modalEliminazioneAccount" tabindex="-1" aria-labelledby="modalEliminazioneAccountLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="modalEliminazioneAccountLabel">Eliminazione Account</h5>
+                      <i class="fas fa-times" style="color: #fba304" class="btn-close" data-dismiss="modal" aria-label="Close"></i>
+                    </div>
+                    <div class="modal-body">
+                      Sei sicuro di voler eliminare il tuo account di The Online MOvie Catalog?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="eliminavetrina" data-dismiss="modal" onclick="eliminaAccount();">Elimina</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+            <!-- PROFILO -->
+            <div id="profilo" style="display: block;"  >
+                <div class="contenitore-icone">            
+                    <div id="modifica" style="color: oldlace; font-family:  'Roboto', sans-serif;">
+                        <div id="container-fluid">
+                            <div class="container">
+                                <div class="py-5 text-center">
+                                    <h2>Modifica le tue impostazioni</h2>
+                                </div>
+                                <input type="hidden" name="form">
+                                <section id="section_negoziante">
+                                    <form name="Negozio" class="needs-validation2" novalidate id="form_negozio">
+                                        <input type="hidden" name="form" value="negoziante">
+                                        <div class="form-row" style="flex-direction: column; align-items: center;">
+                                            <div class="form-group col-md-6">
+                                                <label>Nome del negozio </label>
+                                                <input type="text" class="form-control" id="nomeNegozio" required onKeyUp="checkNomeNegozio();">
+                                                <div class="invalid-feedback" id="messaggioNomeNegozio">
+                                                    Please choose a name of shop.
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>Numero di telefono</label>
+                                                <input type="text" class="form-control" id="telefonoNegozio" required onKeyUp="checkTelefonoNegozio();">
+                                                <div class="invalid-feedback" id="messaggioTelefonoNegozio">
+                                                    Please choose a telephone number.
+                                                </div>
+                                            </div>    
+                                            <div class="form-group col-md-6">
+                                                <label for="inputEmail4">Email</label>
+                                                <input type="email" class="form-control" id="EmailNegoziante" required onKeyUp="checkEmailNegozio();">
+                                                <div class="invalid-feedback" id="messaggioEmailNegozio">
+                                                    Please choose an e-mail
+                                                </div>
+                                            </div>
+                                        </div>
+        
+                                        <div class="form-row" style="flex-direction: column; align-items: center;">
+                                            <div class="form-group col-md-6">
+                                                <label for="inputState">Regione</label>
+                                                <select id="inputRegioneNegozio" class="form-control" aria-label="select regione" required onchange="checkRegioneNegozio();" onfocusout="controlloRegioneNegozio()">
+                                                    <option value="">Seleziona...</option>
+                                                    <option value="Abruzzo">Abruzzo</option>
+                                                    <option value="Basilicata">Basilicata</option>
+                                                    <option value="Calabria">Calabria</option>
+                                                    <option value="Campania">Campania</option>
+                                                    <option value="Emilia-Romagna">Emilia-Romagna</option>
+                                                    <option value="Friuli-Venezia Giulia">Friuli-Venezia Giulia</option>
+                                                    <option value="Lazio">Lazio</option>
+                                                    <option value="Liguria">Liguria</option>
+                                                    <option value="Lombardia">Lombardia</option>
+                                                    <option value="Marche">Marche</option>
+                                                    <option value="Molise">Molise</option>
+                                                    <option value="Piemonte">Piemonte</option>
+                                                    <option value="Puglia">Puglia</option>
+                                                    <option value="Sardegna">Sardegna</option>
+                                                    <option value="Sicilia">Sicilia</option>
+                                                    <option value="Toscana">Toscana</option>
+                                                    <option value="Trentino-Alto Adige">Trentino-Alto Adige</option>
+                                                    <option value="Umbria">Umbria</option>
+                                                    <option value="Valle d'Aosta">Valle d'Aosta</option>
+                                                    <option value="Veneto">Veneto</option>
+                                                </select>
+                                                <div class="invalid-feedback" id="messaggioRegioneNegozio">
+                                                    Please select a valid region.
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="inputCity">Città</label>
+                                                <select id="inputCittàNegozio" class="form-control" required aria-label="select citta" onchange="checkCittaNegozio();" onfocusout="controlloCittaNegozio()">
+                                                    <option value="">Seleziona...</option>
+                                                    <option value="Agrigento">Agrigento</option>
+                                                    <option value="Alessandria">Alessandria</option>
+                                                    <option value="Ancona">Ancona</option>
+                                                    <option value="Aosta">Aosta</option>
+                                                    <option value="Arezzo">Arezzo</option>
+                                                    <option value="Ascoli Piceno">Ascoli Piceno</option>
+                                                    <option value="Asti">Asti</option>
+                                                    <option value="Avellino">Avellino</option>
+                                                    <option value="Bari">Bari</option>
+                                                    <option value="Barletta-Andria-Trani">Barletta-Andria-Trani</option>
+                                                    <option value="Belluno">Belluno</option>
+                                                    <option value="Benevento">Benevento</option>
+                                                    <option value="Bergamo">Bergamo</option>
+                                                    <option value="Biella">Biella</option>
+                                                    <option value="Bologna">Bologna</option>
+                                                    <option value="Bolzano">Bolzano</option>
+                                                    <option value="Brescia">Brescia</option>
+                                                    <option value="Brindisi">Brindisi</option>
+                                                    <option value="Cagliari">Cagliari</option>
+                                                    <option value="Caltanissetta">Caltanissetta</option>
+                                                    <option value="Campobasso">Campobasso</option>
+                                                    <option value="Carbonia-iglesias">Carbonia-iglesias</option>
+                                                    <option value="Caserta">Caserta</option>
+                                                    <option value="Catania">Catania</option>
+                                                    <option value="Catanzaro">Catanzaro</option>
+                                                    <option value="Chieti">Chieti</option>
+                                                    <option value="Como">Como</option>
+                                                    <option value="Cosenza">Cosenza</option>
+                                                    <option value="Cremona">Cremona</option>
+                                                    <option value="Crotone">Crotone</option>
+                                                    <option value="Cuneo">Cuneo</option>
+                                                    <option value="Enna">Enna</option>
+                                                    <option value="Fermo">Fermo</option>
+                                                    <option value="Ferrara">Ferrara</option>
+                                                    <option value="Firenze">Firenze</option>
+                                                    <option value="Foggia">Foggia</option>
+                                                    <option value="Forlì-Cesena">Forl&igrave;-Cesena</option>
+                                                    <option value="Frosinone">Frosinone</option>
+                                                    <option value="Genova">Genova</option>
+                                                    <option value="Gorizia">Gorizia</option>
+                                                    <option value="Grosseto">Grosseto</option>
+                                                    <option value="Imperia">Imperia</option>
+                                                    <option value="Isernia">Isernia</option>
+                                                    <option value="La spezia">La spezia</option>
+                                                    <option value="L'Aquila">L'aquila</option>
+                                                    <option value="Latina">Latina</option>
+                                                    <option value="Lecce">Lecce</option>
+                                                    <option value="Lecco">Lecco</option>
+                                                    <option value="Livorno">Livorno</option>
+                                                    <option value="Lodi">Lodi</option>
+                                                    <option value="Lucca">Lucca</option>
+                                                    <option value="Macerata">Macerata</option>
+                                                    <option value="Mantova">Mantova</option>
+                                                    <option value="Massa-Carrara">Massa-Carrara</option>
+                                                    <option value="Matera">Matera</option>
+                                                    <option value="Medio Campidano">Medio Campidano</option>
+                                                    <option value="Messina">Messina</option>
+                                                    <option value="Milano">Milano</option>
+                                                    <option value="Modena">Modena</option>
+                                                    <option value="Monza e della Brianza">Monza e della Brianza</option>
+                                                    <option value="Napoli">Napoli</option>
+                                                    <option value="Novara">Novara</option>
+                                                    <option value="Nuoro">Nuoro</option>
+                                                    <option value="Ogliastra">Ogliastra</option>
+                                                    <option value="Olbia-Tempio">Olbia-Tempio</option>
+                                                    <option value="Oristano">Oristano</option>
+                                                    <option value="Padova">Padova</option>
+                                                    <option value="Palermo">Palermo</option>
+                                                    <option value="Parma">Parma</option>
+                                                    <option value="Pavia">Pavia</option>
+                                                    <option value="Perugia">Perugia</option>
+                                                    <option value="Pesaro e Urbino">Pesaro e Urbino</option>
+                                                    <option value="Pescara">Pescara</option>
+                                                    <option value="Piacenza">Piacenza</option>
+                                                    <option value="Pisa">Pisa</option>
+                                                    <option value="Pistoia">Pistoia</option>
+                                                    <option value="Pordenone">Pordenone</option>
+                                                    <option value="Potenza">Potenza</option>
+                                                    <option value="Prato">Prato</option>
+                                                    <option value="Ragusa">Ragusa</option>
+                                                    <option value="Ravenna">Ravenna</option>
+                                                    <option value="Reggio di Calabria">Reggio di Calabria</option>
+                                                    <option value="Reggio nell'Emilia">Reggio nell'Emilia</option>
+                                                    <option value="Rieti">Rieti</option>
+                                                    <option value="Rimini">Rimini</option>
+                                                    <option value="Roma">Roma</option>
+                                                    <option value="Rovigo">Rovigo</option>
+                                                    <option value="Salerno">Salerno</option>
+                                                    <option value="Sassari">Sassari</option>
+                                                    <option value="Savona">Savona</option>
+                                                    <option value="Siena">Siena</option>
+                                                    <option value="Siracusa">Siracusa</option>
+                                                    <option value="Sondrio">Sondrio</option>
+                                                    <option value="Taranto">Taranto</option>
+                                                    <option value="Teramo">Teramo</option>
+                                                    <option value="Terni">Terni</option>
+                                                    <option value="Torino">Torino</option>
+                                                    <option value="Trapani">Trapani</option>
+                                                    <option value="Trento">Trento</option>
+                                                    <option value="Treviso">Treviso</option>
+                                                    <option value="Trieste">Trieste</option>
+                                                    <option value="Udine">Udine</option>
+                                                    <option value="Varese">Varese</option>
+                                                    <option value="Venezia">Venezia</option>
+                                                    <option value="Verbano-Cusio-Ossola">Verbano-Cusio-Ossola</option>
+                                                    <option value="Vercelli">Vercelli</option>
+                                                    <option value="Verona">Verona</option>
+                                                    <option value="Vibo valentia">Vibo valentia</option>
+                                                    <option value="Vicenza">Vicenza</option>
+                                                    <option value="Viterbo">Viterbo</option>
+                                                </select>
+                                                <div class="invalid-feedback" id="messaggioCittaNegozio">
+                                                    Please select a valid city.
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="IndirizzoNegoziante">Indirizzo</label>
+                                                <input type="text" class="form-control" id="IndirizzoNegoziante" placeholder="Via Roma 22" required onKeyUp="checkIndirizzoNegozio();">
+                                                <div class="invalid-feedback" id="messaggioIndirizzoNegozio">
+                                                    Please choose an address
+                                                </div>
+                                            </div>
+                                        
+                                            <div class="form-group col-md-6">
+                                                <label for="inputCity">Partita IVA</label>
+                                                <input type="text" class="form-control" id="IVA" required onKeyUp="checkIVANegozio();">
+                                                <div class="invalid-feedback" id="messaggioIVANegozio">
+                                                    Please write your IVA
+                                                </div>
+                                            </div> <br>
+                                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"> Modifica la Password</button>
+                                            <div class="collapse form-group col-md-6" id="collapseExample">
+                                                <div  >
+                                                    <div class="form-group"> <br>
+                                                        <label for="inputPassword2">Password Precedente</label>
+                                                        <input type="password" class="form-control" id="PasswordNegoziante" required onKeyUp="checkPasswordNegozio();">
+                                                        <div class="invalid-feedback" id="messaggioPasswordNegozio">
+                                                            
+                                                        </div> <br>
+                                                        <label for="inputPassword2">Password Nuova</label>
+                                                        <input type="password" class="form-control" id="PasswordNuovaNegoziante" required onKeyUp="checkPasswordNegozio();">
+                                                        <div class="invalid-feedback" id="messaggioPasswordNuovaNegozio">
+                                                            
+                                                        </div>
+                                                        <span id="OcchioDentroPw">
+                                                            <i id="NonVedoNegoziante" class="fas fa-eye-slash" style="display: none; top:23%" onclick="MostraPasswordNegoziante();"></i>
+                                                            <i id="vedoNegoziante" class="fas fa-eye" onclick="MostraPasswordNegoziante();" style="top:23%"> </i>
+                                                        </span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="inputConfermaPasswordNegoziante">Conferma Password</label>
+                                                        <input type="password" class="form-control" id="PasswordControlloNegoziante" required onKeyUp="checkPasswordNegozio();">
+                                                        <div class="invalid-feedback" id="messaggioPasswordControlloNegoziante">
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><br> <br>
+                                        <div class="form-row col-md-6" id="aggiornamento">
+                                            <button type="submit" class="btn btn-primary" style="padding:5px 40px 5px 40px; background-color: #fba304; border: #fba304;" id="aggiornaAccount">Aggiorna</button><br>
+                                        </div>                 
+                                    </form>
+                                    <div class="form-row col-md-6" id="aggiornamento1">
+                                        <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#modalEliminazioneAccount" style="padding:5px 20px 5px 20px;" id="eliminaAccount">Elimina Account</button>
+                                    </div>
+                                </section>
+                            </div>
+                            <footer class="my-5 pt-5 text-muted text-center text-small">
+                                <p class="mb-1">© 2017-2020 Company Name</p>
+                                <ul class="list-inline">
+                                    <li class="list-inline-item"><a href="#">Privacy</a></li>
+                                    <li class="list-inline-item"><a href="#">Terms</a></li>
+                                    <li class="list-inline-item"><a href="#">Support</a></li>
+                                </ul>
+                            </footer>
+                        </div>
+                    </div>
+                </div>
+            
+            </div>
+        </div>
+        
+
+        <!-- Script -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"  crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+        <!-- SCRIPT -->
+        <!-- JQUERY -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script src="../../javascript/negoziante/inComune_negoziante.js"></script>
+        <script src="../../javascript/negoziante/profilo_negoziante.js"></script> 
+    </body>
+</html>

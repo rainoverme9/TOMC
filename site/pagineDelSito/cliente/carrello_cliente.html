@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> TOMC | Carrello</title>
+
+        <!--Link stile -->
+        <!--<link rel="stylesheet" href="./stili/P13_stile.css">-->
+        <link rel="stylesheet" href="../../stili/cliente/cliente_stile.css">
+
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Sen:wght@400;700;800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+        <!-- GOOGLE FONTS -->
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;700;900&display=swap" rel="stylesheet">
+        <!-- OWL CAROUSEL -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" />
+        <!-- BOX ICONS -->
+        <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+        <link rel="shortcut icon" href="../../immagini/shortcutIcon.png">
+        
+    </head>
+    <body>
+        <button id="buttonTornaSu" type="button" class="btn btn-secondary"><i class="fas fa-long-arrow-alt-up"></i></button>
+
+        <!-- Pagina che esce al click su film con info -->    
+        <div class="informazioniFilm" id="informazioniFilm">
+            
+        </div>
+
+        <!-- NAVBAR -->
+        <nav class="navbar navbar-expand-sm sticky-top" style="background-color: black;">
+            <div class="container-fluid">
+                <a class="navbar-brand" style="color: oldlace;" onclick="window.location.assign('./home_cliente.html');"><img src="../../immagini/navbarIcon.png"> </a>
+                <div id="iconeASx">                     
+                    <span id="spanRicerca"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalRicerca" onclick="cancellaDatiRicerca()" ><i class="fa fa-search"></i></button></span>
+                    <button class="btn btn-primary" id="logOut" data-toggle="tooltip" data-placement="right" title="Esci" onclick="esci()"><i class="fas fa-sign-out-alt"></i>LogOut</button>
+                </div>
+            </div>
+        </nav>    
+        
+        <!-- SIDEBAR ACTIVE -->
+        <div class="icon-bar">
+            <div class="contenitore-icone">
+                <a href="./home_cliente.html" data-toggle="tooltip" data-placement="right" title="Home"><i id="defaultOpenMenu" class="fa fa-home"></i></a>
+                <a href="./filmPreferiti_cliente.html" data-toggle="tooltip" data-placement="right" title="La mia lista" ><i class="fas fa-plus"></i></a>
+                <a href="./carrello_cliente.html" data-toggle="tooltip" data-placement="right" title="Carrello"><i id="carrelloi" class="fa fa-shopping-cart" style="color:oldlace"></i><span class="position-absolute badge rounded-pill bg-primary" id="iconNewCarrello" style="color: oldlace; "></span>
+                <a href="./negozianti_cliente.html" data-toggle="tooltip" data-placement="right" title="Negozianti"><i class="fas fa-euro-sign"></i></a>
+                <a href="./profilo_cliente.html" data-toggle="tooltip" data-placement="right" title="Profilo"><i class="fa fa-user"></i></a>
+            </div>
+        </div>
+
+        <div class="contenitore-margine">
+            <!--CARRELLO-->
+            <div id="carrelloUtente" style="display: block;">
+                <div class="container-fluid" >
+                    <div class="container">
+                        <div class="py-5 text-center">
+                        <h2>Il tuo carrello</h2>
+                        </div>
+                    
+                        <div class="row">
+                        <div class="col-md-4 order-md-2 mb-4">
+                            <h4 class="d-flex justify-content-between align-items-center mb-3">
+                            <span>Your cart</span>
+                            <span id="numeroFilmCarrello" class="badge badge-secondary badge-pill"></span>
+                            </h4>
+                            <span id="presenzaAcquisti" style="color: oldlace;"></span>
+                            <ul class="list-group mb-3" id="elementiDaAcquistareNelCarrello">
+                            
+                            </ul>
+                            <ul class="list-group mb-3" id="elementiDaNoleggiareNelCarrello">
+                            
+                            </ul>
+                            <ul class="list-group mb-3" id="cestinaTutto">
+                                <i type="button" data-toggle="modal" data-target="#modalCestinaTutto" class="fas fa-trash-alt" style="color: #fba304;" data-toggle="tooltip" data-placement="right" title="Svuota"></i>
+                            </ul>
+                            <ul class="list-group mb-3" >
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <span>Total</span>
+                                    <strong datavalue="" id="totaleSpesa"></strong>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-8 order-md-1">
+                            <h4 class="mb-3">Informazioni Pagamento</h4>
+                            <form class="needs-validation2" novalidate="">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="firstName">Nome</label>
+                                    <input type="text" class="form-control" disabled="true" id="nome" required="">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="lastName">Cognome</label>
+                                    <input type="text" class="form-control" disabled="true" id="cognome" value="" required="">
+                                </div>
+                            </div>
+                    
+                            <div class="mb-3">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" disabled="true" id="email">
+                            </div>
+                    
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="country">Regione</label>
+                                    <select class="form-control" id="regione" required disabled="true">
+                                        <option value="">Seleziona...</option>
+                                            <option value="Abruzzo">Abruzzo</option>
+                                            <option value="Basilicata">Basilicata</option>
+                                            <option value="Calabria">Calabria</option>
+                                            <option value="Campania">Campania</option>
+                                            <option value="Emilia-Romagna">Emilia-Romagna</option>
+                                            <option value="Friuli-Venezia Giulia">Friuli-Venezia Giulia</option>
+                                            <option value="Lazio">Lazio</option>
+                                            <option value="Liguria">Liguria</option>
+                                            <option value="Lombardia">Lombardia</option>
+                                            <option value="Marche">Marche</option>
+                                            <option value="Molise">Molise</option>
+                                            <option value="Piemonte">Piemonte</option>
+                                            <option value="Puglia">Puglia</option>
+                                            <option value="Sardegna">Sardegna</option>
+                                            <option value="Sicilia">Sicilia</option>
+                                            <option value="Toscana">Toscana</option>
+                                            <option value="Trentino-Alto Adige">Trentino-Alto Adige</option>
+                                            <option value="Umbria">Umbria</option>
+                                            <option value="Valle d'Aosta">Valle d'Aosta</option>
+                                            <option value="Veneto">Veneto</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="state">Città</label>
+                                    <select class="form-control" id="città" disabled="true" required>
+                                        <option value="">Seleziona...</option>
+                                            <option value="Agrigento">Agrigento</option>
+                                            <option value="Alessandria">Alessandria</option>
+                                            <option value="Ancona">Ancona</option>
+                                            <option value="Aosta">Aosta</option>
+                                            <option value="Arezzo">Arezzo</option>
+                                            <option value="Ascoli Piceno">Ascoli Piceno</option>
+                                            <option value="Asti">Asti</option>
+                                            <option value="Avellino">Avellino</option>
+                                            <option value="Bari">Bari</option>
+                                            <option value="Barletta-Andria-Trani">Barletta-Andria-Trani</option>
+                                            <option value="Belluno">Belluno</option>
+                                            <option value="Benevento">Benevento</option>
+                                            <option value="Bergamo">Bergamo</option>
+                                            <option value="Biella">Biella</option>
+                                            <option value="Bologna">Bologna</option>
+                                            <option value="Bolzano">Bolzano</option>
+                                            <option value="Brescia">Brescia</option>
+                                            <option value="Brindisi">Brindisi</option>
+                                            <option value="Cagliari">Cagliari</option>
+                                            <option value="Caltanissetta">Caltanissetta</option>
+                                            <option value="Campobasso">Campobasso</option>
+                                            <option value="Carbonia-iglesias">Carbonia-iglesias</option>
+                                            <option value="Caserta">Caserta</option>
+                                            <option value="Catania">Catania</option>
+                                            <option value="Catanzaro">Catanzaro</option>
+                                            <option value="Chieti">Chieti</option>
+                                            <option value="Como">Como</option>
+                                            <option value="Cosenza">Cosenza</option>
+                                            <option value="Cremona">Cremona</option>
+                                            <option value="Crotone">Crotone</option>
+                                            <option value="Cuneo">Cuneo</option>
+                                            <option value="Enna">Enna</option>
+                                            <option value="Fermo">Fermo</option>
+                                            <option value="Ferrara">Ferrara</option>
+                                            <option value="Firenze">Firenze</option>
+                                            <option value="Foggia">Foggia</option>
+                                            <option value="Forlì-Cesena">Forl&igrave;-Cesena</option>
+                                            <option value="Frosinone">Frosinone</option>
+                                            <option value="Genova">Genova</option>
+                                            <option value="Gorizia">Gorizia</option>
+                                            <option value="Grosseto">Grosseto</option>
+                                            <option value="Imperia">Imperia</option>
+                                            <option value="Isernia">Isernia</option>
+                                            <option value="La spezia">La spezia</option>
+                                            <option value="L'Aquila">L'aquila</option>
+                                            <option value="Latina">Latina</option>
+                                            <option value="Lecce">Lecce</option>
+                                            <option value="Lecco">Lecco</option>
+                                            <option value="Livorno">Livorno</option>
+                                            <option value="Lodi">Lodi</option>
+                                            <option value="Lucca">Lucca</option>
+                                            <option value="Macerata">Macerata</option>
+                                            <option value="Mantova">Mantova</option>
+                                            <option value="Massa-Carrara">Massa-Carrara</option>
+                                            <option value="Matera">Matera</option>
+                                            <option value="Medio Campidano">Medio Campidano</option>
+                                            <option value="Messina">Messina</option>
+                                            <option value="Milano">Milano</option>
+                                            <option value="Modena">Modena</option>
+                                            <option value="Monza e della Brianza">Monza e della Brianza</option>
+                                            <option value="Napoli">Napoli</option>
+                                            <option value="Novara">Novara</option>
+                                            <option value="Nuoro">Nuoro</option>
+                                            <option value="Ogliastra">Ogliastra</option>
+                                            <option value="Olbia-Tempio">Olbia-Tempio</option>
+                                            <option value="Oristano">Oristano</option>
+                                            <option value="Padova">Padova</option>
+                                            <option value="Palermo">Palermo</option>
+                                            <option value="Parma">Parma</option>
+                                            <option value="Pavia">Pavia</option>
+                                            <option value="Perugia">Perugia</option>
+                                            <option value="Pesaro e Urbino">Pesaro e Urbino</option>
+                                            <option value="Pescara">Pescara</option>
+                                            <option value="Piacenza">Piacenza</option>
+                                            <option value="Pisa">Pisa</option>
+                                            <option value="Pistoia">Pistoia</option>
+                                            <option value="Pordenone">Pordenone</option>
+                                            <option value="Potenza">Potenza</option>
+                                            <option value="Prato">Prato</option>
+                                            <option value="Ragusa">Ragusa</option>
+                                            <option value="Ravenna">Ravenna</option>
+                                            <option value="Reggio di Calabria">Reggio di Calabria</option>
+                                            <option value="Reggio nell'Emilia">Reggio nell'Emilia</option>
+                                            <option value="Rieti">Rieti</option>
+                                            <option value="Rimini">Rimini</option>
+                                            <option value="Roma">Roma</option>
+                                            <option value="Rovigo">Rovigo</option>
+                                            <option value="Salerno">Salerno</option>
+                                            <option value="Sassari">Sassari</option>
+                                            <option value="Savona">Savona</option>
+                                            <option value="Siena">Siena</option>
+                                            <option value="Siracusa">Siracusa</option>
+                                            <option value="Sondrio">Sondrio</option>
+                                            <option value="Taranto">Taranto</option>
+                                            <option value="Teramo">Teramo</option>
+                                            <option value="Terni">Terni</option>
+                                            <option value="Torino">Torino</option>
+                                            <option value="Trapani">Trapani</option>
+                                            <option value="Trento">Trento</option>
+                                            <option value="Treviso">Treviso</option>
+                                            <option value="Trieste">Trieste</option>
+                                            <option value="Udine">Udine</option>
+                                            <option value="Varese">Varese</option>
+                                            <option value="Venezia">Venezia</option>
+                                            <option value="Verbano-Cusio-Ossola">Verbano-Cusio-Ossola</option>
+                                            <option value="Vercelli">Vercelli</option>
+                                            <option value="Verona">Verona</option>
+                                            <option value="Vibo valentia">Vibo valentia</option>
+                                            <option value="Vicenza">Vicenza</option>
+                                            <option value="Viterbo">Viterbo</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="address">Indirizzo</label>
+                                <input type="text" class="form-control" disabled="true" id="indirizzo" required>
+                            </div>
+
+                            <hr class="mb-4">
+                    
+                            <h4 class="mb-3">Payment</h4>
+                    
+                            <div class="d-block my-3">
+                                <div class="custom-control custom-radio">
+                                    <input id="pagamento" name="paymentMethod" type="radio" class="custom-control-input" checked="true" required="">
+                                    <label class="custom-control-label" for="credit" id="labelPagamento"></label>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="cc-number">Numero della carta</label>
+                                <input class="form-control" id="numeroCarta"  required="">
+                                <div class="invalid-feedback">
+                                    Devi inserire il numero della carta per procedere ocn il pagamento
+                                </div>
+                            </div>
+                            <button class="btn btn-primary btn-lg btn-block" id="paga">Paga</button>
+                            </form>
+                        </div>
+                        </div>
+                    
+                        <footer class="my-5 pt-5 text-muted text-center text-small">
+                            <p class="mb-1">© 2017-2020 Company Name</p>
+                            <ul class="list-inline">
+                                <li class="list-inline-item"><a href="#">Privacy</a></li>
+                                <li class="list-inline-item"><a href="#">Terms</a></li>
+                                <li class="list-inline-item"><a href="#">Support</a></li>
+                            </ul>
+                        </footer>
+                    </div>
+                </div>
+            </div>
+    
+            <!--MODAL RICERCA -->
+            <div class="modal fade" id="modalRicerca" tabindex="-1" aria-labelledby="modalRicercaLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl">
+                    <div class="modal-content bg-dark text-white">
+                        <div class="modal-header" style="border-bottom: 0px;">
+                            <h5 class="modal-title" id="SearchModalLabel">Ricerca Avanzata</h5>
+                            <i class="fas fa-times" style="color: #fba304" class="btn-close" data-dismiss="modal" aria-label="Close"></i>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container">
+                                <div class="form-row" style="display: flex; justify-content: center;">
+                                    <div class="form-group ">
+                                        <select class="form-control" onchange="showForm()" id="qualeRicerca">  <!--mostra registrazione cliente o negoziante-->
+                                            <option value="0">Per Titolo</option>
+                                            <option value="1">Per Attore</option>
+                                            <option value="2">Per Durata</option>
+                                            <option value="3">Per Genere</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <section id="section_0">
+                                <form class="d-flex" style="justify-content: center;" id="formRicerca">
+                                    <input class="form-control me-2"  id="searchFilm" type="text" placeholder="Cerca un titolo..." aria-label="Search" style="width: 17.5rem; margin-top: 1rem; margin-bottom: 2rem;">
+                                </form>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" onclick="cercaFilm()" id="cerca_ricerca" id="aattorii" >Cerca</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </section>
+                            <section id="section_1" style="display: none;">
+                                <form class="d-flex" style="justify-content: center;"id="formRicerca2" style="margin-bottom: 2rem;">
+                                    <input class="form-control me-2"  id="searchAttore" type="text" placeholder="Cerca un attore..." aria-label="Search" style="width: 17.5rem; margin-top: 1rem; margin-bottom: 2rem;">
+                                </form>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" onclick="cercaAttore()" id="cerca_ricerca" id="ffilmm">Cerca</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </section>
+                            <section id="section_2" style="display: none;">
+                                <form class="d-flex" style="justify-content: center;"id="formRicerca2" style="margin-bottom: 2rem;">
+                                    <input class="form-control me-2"  id="searchDurata" type="text" placeholder="Cerca in base alla durata..." aria-label="Search" style="width: 17.5rem; margin-top: 1rem; margin-bottom: 2rem;">
+                                </form>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" onclick="cercaDurata()" id="cerca_ricerca" id="ffilmm">Cerca</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </section>
+                            <section id="section_3"style="display: none;">
+                                <div class="container">
+                                    <div class="form-row" style="display: flex; justify-content: center;">
+                                        <div class="form-group ">
+                                            <select class="form-control"  size="1" aria-label="size 3 select example" id="select_genere" style="margin-bottom: 2rem;" >  
+                                                
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="mostroGeneri()" id="cerca_ricerca" id="aattorii" >Cerca</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </section>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MODAL AGGIUNTA CARRELLO -->
+            <div class="modal fade" id="modalAggiuntaAlCarrello" tabindex="-1" aria-labelledby="modalAggiuntaAlCarrelloLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="modalAggiuntaAlCarrelloLabel">Aggiunto al carrello</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="card mb-3" style="max-width: 540px;">
+                            <div class="row no-gutters">
+                            <div class="col-md-4">
+                                <div id="posterAcquisto">
+
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h3 id="titoloAcquisto">
+
+                                    </h3>
+                                <p class="card-text" id="card-text"></p>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary"  data-dismiss="modal" onclick="closeInfoFilm(), presenzaAcquisti(), openTabContent('carrelloUtente')">Vai al carrello</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <!-- MODAL MOSTRO NEGOSI CHE VENDONO IL FILM -->
+            <div class="modal fade" id="modalCompra" tabindex="1" aria-labelledby="modalCompraLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="modalCompraLabel">Scegli il Negozio</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="card mb-3" style="max-width: 540px;">
+                                <div class="card-body" id="listaNegoziVendita">
+                                </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <!-- MODAL CONFERMA ELIMINAZIONE FILM CARRELLO -->
+            <div class="modal fade" id="modalCestinaTutto" tabindex="-1" aria-labelledby="modalCestinaTuttoLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="modalCestinaTuttoLabel">Conferma eliminazione</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                    Sei sicuro di voler eliminare tutti i film dal Carrello?
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="eliminaTuttiIFilm()" >Confermo</button>
+                    </div>
+                </div>
+                </div>
+            </div>            
+        </div>
+        
+
+        <!-- Script -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"  crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+        <!-- SCRIPT -->
+        <!-- JQUERY -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script src="../../javascript/cliente/inComune_cliente.js"></script> 
+        <script src="../../javascript/cliente/carrello_cliente.js"></script> 
+    </body>
+</html>

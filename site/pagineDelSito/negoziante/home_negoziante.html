@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> TOMC | Home</title>
+
+        <!--Link stile -->
+        <!--<link rel="stylesheet" href="./stili/P13_stile.css">-->
+        <link rel="stylesheet" href="../../stili/negoziante/negoziante_stile.css">
+
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Sen:wght@400;700;800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+        <!-- GOOGLE FONTS -->
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;700;900&display=swap" rel="stylesheet">
+        <!-- OWL CAROUSEL -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" />
+        <!-- BOX ICONS -->
+        <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+        <link rel="shortcut icon" href="../../immagini/shortcutIcon.png">
+        
+    </head>
+    <body>
+        <button id="buttonTornaSu" type="button" class="btn btn-secondary"><i class="fas fa-long-arrow-alt-up"></i></button>
+
+        <!-- Pagina che esce al click su film con info -->    
+        <div class="informazioniFilm" id="informazioniFilm">
+            
+        </div>
+
+        <!-- NAVBAR -->
+        <nav class="navbar navbar-expand-sm sticky-top" style="background-color: black;">
+            <div class="container-fluid">
+                <a class="navbar-brand" style="color: oldlace;" onclick="window.location.assign('./home_negoziante.html');"><img src="../../immagini/navbarIcon.png"> </a>
+                <div id="iconeASx">                     
+                    <span id="spanRicerca"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalRicerca" onclick="cancellaDatiRicerca()"><i class="fa fa-search"></i></button></span>
+                    <button class="btn btn-primary" name="logOut" data-toggle="tooltip" data-placement="right" title="Esci" onclick="esci()"><i class="fas fa-sign-out-alt" ></i>LogOut</button>
+                </div>
+            </div>
+        </nav>    
+        
+        <!-- SIDEBAR -->
+        <div class="icon-bar">
+            <div class="contenitore-icone">
+                <a href="./home_negoziante.html" id="defaultOpenMenu" data-toggle="tooltip" data-placement="right" title="Home"><i class="fa fa-home" style="color:oldlace"></i></a>
+                <a href="./aggiungiFilm_negoziante.html" data-toggle="tooltip" data-placement="right" title="Filtra per generi"><i class="fas fa-plus"></i></a>
+                <a href="./profilo_negoziante.html" data-toggle="tooltip" data-placement="right" title="Profilo"><i class="fa fa-user"></i></a>
+            </div>
+        </div>
+
+        <div class="contenitore-margine">
+            <!-- HOME -->
+            <div id="home" style="display: block;">
+                <div id="profilImpostazioni">
+                    <div class="container-fluid">
+                        <div class="py-5 text-center">
+                            <h2 id="salutoUtente">Ciao </h2>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-4">
+                                <!-- Personal-Information -->
+                                <div class="card-box">
+                                    <div class="panel-body">
+                                        <div class="infoUtente">
+                                        <h3>Personal Information</h3>
+                                        <button class="btn btn-primary" name="logOut" data-toggle="tooltip" data-placement="right" title="Esci" onclick="esci()"><i class="fas fa-sign-out-alt"></i>LogOut</button>
+                                        </div>
+                                        <hr>
+                                        <div class="text-left" id="infoNegoziante">
+                                            
+                                        </div>                                        
+                                    </div>
+                                </div>
+                                <!-- Personal-Information -->
+                                <div class="card-box ribbon-box">
+                                    <div class="ribbon ribbon-primary">In scadenza</div>
+                                    <div class="clearfix" id="demo"></div>
+                                    <div class="inbox-widget" id="scadenzeFilmNoleggiati">
+
+                                    </div>
+                                </div>
+
+                                <!-- Statistiche di acquisto dei negozi-->
+                                <div class="accordion accordion-flush" id="accordionFlushExample" style="margin-bottom: 30px">
+                                    <div class="accordion-item" style="background-color: #141414;">
+                                      <h2 class="accordion-header" id="flush-headingOne">
+                                        <button class="accordion-button collapsed  btn-success" type="button" data-toggle="collapse" data-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne" style="border-radius: 5px;">
+                                          Statistiche Acquisto
+                                        </button>
+                                      </h2>
+                                      <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-parent="#accordionFlushExample">
+                                        <div class="accordion-body">
+                                            <div class="carosello">
+                                                <h3>ACQUISTI </h3><br>
+                                                <div  class="carousel slide">
+                                                    <div id="caroselloFilmNoleggiati" class="row padding_index" >
+                                                        <div id="caroselloAcquistati" class="algin-top overflow-auto scroller_index" style="white-space: nowrap;">
+                                
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>  
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="accordion-item" style="background-color: #141414; margin-top: 7px;">
+                                      <h2 class="accordion-header" id="flush-headingTwo">
+                                        <button class="accordion-button collapsed btn-success" type="button" data-toggle="collapse" data-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo" style="border-radius: 5px;">
+                                            Statistiche Noleggio
+                                        </button>
+                                      </h2>
+                                      <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-parent="#accordionFlushExample">
+                                        <div class="accordion-body">
+                                            <div class="carosello">
+                                                <h3>NOLEGGI</h3><br>
+                                                <div  class="carousel slide">
+                                                    <div id="caroselloFilmNoleggiati" class="row padding_index" >
+                                                        <div id="caroselloNoleggiati" class="algin-top overflow-auto scroller_index" style="white-space: nowrap;">
+                                
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                      </div>
+                                    </div>   <br>
+                                    <h5>RECENSIONI: </h5>
+                                    <div id="recensionidelnegozio" style="margin-bottom: 6rem;">
+                                        <div id="carouselRecensioni" class="carousel slide" data-bs-ride="carousel">
+                                            <div class="carousel-inner" id="caroselloRecensioni">
+                                                
+                                            </div>
+                                            <a class="carousel-control-next" href="#carouselRecensioni" role="button" data-slide="next">
+                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                <span class="sr-only">Next</span>
+                                            </a>
+                                            <a class="carousel-control-next" href="#carouselRecensioni" role="button" data-slide="next">
+                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                <span class="sr-only">Next</span>
+                                            </a>
+                                        </div>
+                                    </div>                                         
+                            </div>
+                            </div>
+                            <div class="col-xl-8">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="card-box tilebox-one"><i class="icon-layers float-right text-muted"></i>
+                                            <h6>FILM TOTALI VENDUTI</h6>
+                                            <div style="display: flex; justify-content: space-between;">
+                                               <h5 class="" data-plugin="counterup" id="ottenuti"></h5><span class="badge badge-custom"></span>
+                                                <div style="display: flex; align-items: baseline;"><p id="guadagno"> </p></div>
+                                            </div>                                            
+                                        </div>
+                                            
+                                    </div>
+                                    <!-- end col -->
+                                    <div class="col-sm-4">
+                                        <div class="card-box tilebox-one"><i class="icon-paypal float-right text-muted"></i>
+                                            <h6 >ACQUISTI</h6>
+                                            <h5><span data-plugin="counterup" id="acquistati"></span></h5></div>
+                                    </div>
+                                    <!-- end col -->
+                                    <div class="col-sm-4">
+                                        <div class="card-box tilebox-one"><i class="icon-rocket float-right text-muted"></i>
+                                            <h6 >NOLEGGI </h6>
+                                            <h5 data-plugin="counterup" id="noleggiati"></h5></div>
+                                    </div>
+                                    <!-- end col -->
+                                </div>
+                                <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalRicerca" style="margin-left: 1.4rem;">Aggiungi un film</button>
+                                <!-- end row -->
+                                    <div class="carosello">
+                                        <h3>VETRINA NEGOZIO</h3><br>
+                                        <div  class="carousel slide">
+                                            <div id="caroselloFilmAcquistati" class="row padding_index" >
+                                                <div id="divLaMiaVetrina" class="algin-top overflow-auto scroller_index" style="white-space: nowrap;">
+                        
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>                                    
+                            </div>
+                            </div>
+                            
+                        </div>
+                    <!-- Footer -->
+                    <footer class="my-5 pt-5 text-muted text-center text-small">
+                        <p class="mb-1">© 2020 - 2021 Mazzilli Elena</p>
+                        <ul class="list-inline">
+                        <li class="list-inline-item"><a href="#">Privacy</a></li>
+                        <li class="list-inline-item"><a href="#">Terms</a></li>
+                        <li class="list-inline-item"><a href="#">Support</a></li>
+                        </ul>
+                    </footer>
+                </div>  
+            </div>
+
+            <!--RICERCA MODAL -->
+            <div class="modal fade" id="modalRicerca" tabindex="-1" aria-labelledby="modalRicercaLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl">
+                    <div class="modal-content bg-dark text-white">
+                        <div class="modal-header" style="border-bottom: 0px;">
+                            <h5 class="modal-title" id="SearchModalLabel">Ricerca Avanzata</h5>
+                            <i class="fas fa-times" style="color: #fba304" class="btn-close" data-dismiss="modal" aria-label="Close"></i>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container">
+                                <div class="form-row" style="display: flex; justify-content: center;">
+                                    <div class="form-group ">
+                                        <select class="form-control" onchange="showForm()" id="qualeRicerca">  <!--mostra registrazione cliente o negoziante-->
+                                            <option value="0">Per Titolo</option>
+                                            <option value="1">Per Attore</option>
+                                            <option value="3">Per Genere</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <section id="section_0">
+                                <form class="d-flex" style="justify-content: center;" id="formRicerca">
+                                    <input class="form-control me-2"  id="searchFilm" type="text" placeholder="Search for a movie..." aria-label="Search" style="width: 17.5rem; margin-top: 1rem; margin-bottom: 2rem;">
+                                </form>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" onclick="cercaFilm()" id="ffilmm" >Cerca</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </section>
+                            <section id="section_1" style="display: none;">
+                                <form class="d-flex" style="justify-content: center;"id="formRicerca2" style="margin-bottom: 2rem;">
+                                    <input class="form-control me-2"  id="searchAttore" type="text" placeholder="Search for a person..." aria-label="Search" style="width: 17.5rem; margin-top: 1rem; margin-bottom: 2rem;">
+                                </form>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" onclick="cercaAttore()" id="aattorii">Cerca</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </section>
+                            <section id="section_3"style="display: none;">
+                                <div class="container">
+                                    <div class="form-row" style="display: flex; justify-content: center;">
+                                        <div class="form-group ">
+                                            <select class="form-control"  size="1" aria-label="size 3 select example" id="select_genere" style="margin-bottom: 2rem;" >  <!--mostra registrazione cliente o negoziante-->
+                                                
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="mostroGeneri()" id="ggenerii" >Cerca</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </section>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MODAL PER LA VENDITA E IL NOLEGGIO, Inserimento prezzi -->
+            <div class="modal fade" id="modalVenditaNoleggio" tabindex="-1" aria-labelledby="modalVenditaNoleggioLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                        <i class="fas fa-times" style="color: #fba304" class="btn-close" data-dismiss="modal" aria-label="Close"></i>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="card mb-3" style="max-width: 740px;">
+                            <div class="row no-gutters">
+                            <div class="col-md-6">
+                                <div id="posterAcquisto">
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card-body">
+                                
+                                    <div class="form-row" style="display: flex; justify-content: center; flex-direction: column; align-content: center">
+                                        <h3 id="titoloAcquisto">
+
+                                        </h3>
+                                        <div id="inseriscoValori">
+                                            <div class="container" style="margin-top: 1rem;">
+                                                <p class="font">Scegli il prezzo di acquisto </p>                                                      
+                                                <div class="input-group mb-2">
+                                                    <input type="number" class="form-control" id="inputDecinePrezzoAcquisto" min="0" >
+                                                    <div class="invalid-feedback" id="messaggioDecinePrezzoAcquisto">
+                                                    
+                                                    </div>
+                                                    <span class="input-group-text">,</span>
+                                                    <input type="number" class="form-control" id="inputDecimaliPrezzoAcquisto" min="0" >
+                                                    <div class="invalid-feedback" id="messaggioDecimaliPrezzoAcquisto">
+                                                    
+                                                    </div>
+                                                  <span class="input-group-text">€</span>
+                                                </div>
+                                                <p class="font">Scegli il prezzo di noleggio </p>                                                       
+                                                <div class="input-group mb-2">
+                                                    <input type="number" class="form-control"id="inputDecinePrezzoNoleggio" min="0">
+                                                    <div class="invalid-feedback" id="messaggioDecinePrezzoNoleggio">
+                                                    
+                                                    </div>
+                                                    <span class="input-group-text">,</span>
+                                                    <input type="number" class="form-control" id="inputDecimaliPrezzoNoleggio" min="0">
+                                                    <div class="invalid-feedback" id="messaggioDecimaliPrezzoNoleggio">
+                                                    
+                                                    </div>
+                                                    <span class="input-group-text">€</span>
+                                                </div> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer"  id="bottoneVendita">
+                       
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <!--MODAL ELIMINAZIONE FILM VETRINA-->
+            <div class="modal fade" id="modalEliminazioneVetrina" tabindex="-1" aria-labelledby="modalEliminazioneVetrinaLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="modalEliminazioneVetrinaLabel">Eliminazione dalle vendite</h5>
+                      <i class="fas fa-times" style="color: #fba304" class="btn-close" data-dismiss="modal" aria-label="Close"></i>
+                    </div>
+                    <div class="modal-body">
+                      Sei sicuro di voler eliminare il film dala vetrina del tuo negozio?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="eliminavetrina" data-dismiss="modal">Elimina</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <!-- Script -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"  crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+        <!-- SCRIPT -->
+        <!-- JQUERY -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script src="../../javascript/negoziante/inComune_negoziante.js"></script> 
+        <script src="../../javascript/negoziante/home_negoziante.js"></script> 
+    </body>
+</html>

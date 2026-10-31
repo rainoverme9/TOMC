@@ -1,0 +1,103 @@
+/*GENERALE*/
+body {
+    background-color: #141414; 
+}
+h4,h2, h3 {
+    color: #fba304;
+}
+label {
+    color: black;
+}
+i, button {
+    cursor: pointer;
+}
+
+/*ACCEDERE*/
+#inizio {
+    background-image: url(./collage_film.png);
+    color: oldlace;
+}
+#inizio::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to right bottom,rgba(255, 255, 255, 0.515),rgba(113, 115, 116, 0.213));
+}
+
+/*PASSWORD*/
+#vedo{
+    margin-left: 20px;
+    cursor: pointer;
+}
+#OcchioDentroPwimg {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+}
+#eye, #noeye, #vedoNegoziante, #NonVedoNegoziante {
+    position: absolute;
+    right: 15px;
+    top: 2.6rem;
+}
+
+/*PRESENTAZIONE SCENARI*/
+.featurette {
+    margin: 6%;
+}
+p {
+    color: oldlace;
+}
+.featurette-divider {
+    background-color: oldlace;
+}
+.contenitore {
+    background-color: black;
+    padding-bottom: 2%;
+}
+#contrario p, #contrario h2 {
+    margin-left: 11%;
+}
+@media screen and (max-width: 767px) {
+    #contrario p, #contrario h2 {
+        margin-left: 0px;
+    }   
+}
+
+/*SCROLLER*/
+::-webkit-scrollbar {
+    margin-top: 1rem;
+    border-radius: 5px;
+    width:0.6em;
+    height:0.4em;
+    background: #686767;
+}
+::-webkit-scrollbar:hover{
+    border: none;
+}
+::-webkit-scrollbar-thumb{
+    border-radius: 5px;
+    min-height:0.4em;
+    min-width:0.8em;
+    background-color: #303030;
+    border: none;
+}
+::-webkit-scrollbar-thumb:hover{
+    background-color: #303030;
+    border: none;
+}
+
+/*MODAL*/
+@media (min-width: 576px) {
+    .modal-dialog {
+        max-width: 700px;
+        margin: 1.75rem auto;
+    }
+}
+
+
+.form-control.is-invalid {
+    background-image: url('http://www.w3.org/2000/svg');
+    background-position: right calc(0.375em + 1.1875rem) center;
+}

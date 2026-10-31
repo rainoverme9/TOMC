@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> TOMC </title>
+
+        <!--Link stile -->
+        <!--<link rel="stylesheet" href="./stili/P13_stile.css">-->
+        <link rel="stylesheet" href="../../stili/cliente/cliente_stile.css">
+
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Sen:wght@400;700;800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+        <!-- GOOGLE FONTS -->
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;700;900&display=swap" rel="stylesheet">
+        <!-- OWL CAROUSEL -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" />
+        <!-- BOX ICONS -->
+        <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+        <link rel="shortcut icon" href="../../immagini/shortcutIcon.png">
+        
+    </head>
+    <body>
+        <button id="buttonTornaSu" type="button" class="btn btn-secondary"><i class="fas fa-long-arrow-alt-up"></i></button>
+
+        <!-- Pagina che esce al click su film con info -->    
+        <div class="informazioniFilm" id="informazioniFilm">
+            
+        </div>
+
+        <!-- NAVBAR -->
+        <nav class="navbar navbar-expand-sm sticky-top" style="background-color: black;">
+            <div class="container-fluid">
+                <a class="navbar-brand" style="color: oldlace;" onclick="window.location.assign('./home_cliente.html');"><img src="../../immagini/navbarIcon.png"> </a>
+                <div id="iconeASx">                     
+                    <span id="spanRicerca"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalRicerca" onclick="cancellaDatiRicerca()" ><i class="fa fa-search"></i></button></span>
+                    <button class="btn btn-primary" id="logOut" data-toggle="tooltip" data-placement="right" title="Esci" onclick="esci()"><i class="fas fa-sign-out-alt"></i>LogOut</button>
+                </div>
+            </div>
+        </nav>    
+        
+        <!-- SIDEBAR ACTIVE -->
+        <div class="icon-bar">
+            <div class="contenitore-icone">
+                <a href="./home_cliente.html" data-toggle="tooltip" data-placement="right" title="Home"><i id="defaultOpenMenu" class="fa fa-home"></i></a>
+                <a href="./filmPreferiti_cliente.html" data-toggle="tooltip" data-placement="right" title="La mia lista" ><i class="fas fa-plus"></i></a>
+                <a href="./carrello_cliente.html" data-toggle="tooltip" data-placement="right" title="Carrello"><i id="carrelloi" class="fa fa-shopping-cart"></i><span class="position-absolute badge rounded-pill bg-primary" id="iconNewCarrello" style="color: oldlace; "></span>
+                <a href="./negozianti_cliente.html" data-toggle="tooltip" data-placement="right" title="Negozianti"><i class="fas fa-euro-sign"></i></a>
+                <a href="./profilo_cliente.html" data-toggle="tooltip" data-placement="right" title="Profilo"><i class="fa fa-user"></i></a>
+            </div>
+        </div>
+
+        <div class="contenitore-margine">
+            <!-- CERCA -->
+            <div id="cerca" style="display: block;">
+                <div class="container-fluid">                    
+                    <div class="py-5 text-center" id="cosaCerco"></div>
+
+                    <!--Inserimento film -->
+                    <div id="cercaIFilm">
+                    </div>
+                    <div  class="my-5 pt-5 text-center" >
+                        <div class="pagination" id="diPiu">
+                            
+                        </div>
+                    </div>     
+                </div>
+                <!-- Footer -->
+                <footer class="my-5 pt-5 text-muted text-center text-small" id="footer_generi">
+                    <p class="mb-1">© 2020 - 2021 Mazzilli Elena</p>
+                    <ul class="list-inline">
+                    <li class="list-inline-item"><a href="#">Privacy</a></li>
+                    <li class="list-inline-item"><a href="#">Terms</a></li>
+                    <li class="list-inline-item"><a href="#">Support</a></li>
+                    </ul>
+                </footer> 
+            </div>
+    
+            <!--MODAL RICERCA -->
+            <div class="modal fade" id="modalRicerca" tabindex="-1" aria-labelledby="modalRicercaLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl">
+                    <div class="modal-content bg-dark text-white">
+                        <div class="modal-header" style="border-bottom: 0px;">
+                            <h5 class="modal-title" id="SearchModalLabel">Ricerca Avanzata</h5>
+                            <i class="fas fa-times" style="color: #fba304" class="btn-close" data-dismiss="modal" aria-label="Close"></i>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container">
+                                <div class="form-row" style="display: flex; justify-content: center;">
+                                    <div class="form-group ">
+                                        <select class="form-control" onchange="showForm()" id="qualeRicerca">  <!--mostra registrazione cliente o negoziante-->
+                                            <option value="0">Per Titolo</option>
+                                            <option value="1">Per Attore</option>
+                                            <option value="2">Per Durata</option>
+                                            <option value="3">Per Genere</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <section id="section_0">
+                                <form class="d-flex" style="justify-content: center;" id="formRicerca">
+                                    <input class="form-control me-2"  id="searchFilm" type="text" placeholder="Cerca un titolo..." aria-label="Search" style="width: 17.5rem; margin-top: 1rem; margin-bottom: 2rem;">
+                                </form>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" onclick="film()" id="cerca_ricerca" id="ffilmm" >Cerca</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </section>
+                            <section id="section_1" style="display: none;">
+                                <form class="d-flex" style="justify-content: center;"id="formRicerca2" style="margin-bottom: 2rem;">
+                                    <input class="form-control me-2"  id="searchAttore" type="text" placeholder="Cerca un attore..." aria-label="Search" style="width: 17.5rem; margin-top: 1rem; margin-bottom: 2rem;">
+                                </form>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" onclick="attore()" id="cerca_ricerca" id="aattorii">Cerca</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </section>
+                            <section id="section_2" style="display: none;">
+                                <form class="d-flex" style="justify-content: center;"id="formRicerca2" style="margin-bottom: 2rem;">
+                                    <input class="form-control me-2"  id="searchDurata" type="text" placeholder="Cerca in base alla durata..." aria-label="Search" style="width: 17.5rem; margin-top: 1rem; margin-bottom: 2rem;">
+                                </form>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" onclick="durata()" id="cerca_ricerca" id="ddurataa">Cerca</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </section>
+                            <section id="section_3"style="display: none;">
+                                <div class="container">
+                                    <div class="form-row" style="display: flex; justify-content: center;">
+                                        <div class="form-group ">
+                                            <select class="form-control"  size="1" aria-label="size 3 select example" id="select_genere" style="margin-bottom: 2rem;" >  
+                                                
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="mostroGeneri()" id="cerca_ricerca" id="aattorii" >Cerca</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </section>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>   
+            
+            <!-- MODAL AGGIUNTA CARRELLO -->
+            <div class="modal fade" id="modalAggiuntaAlCarrello" tabindex="-1" aria-labelledby="modalAggiuntaAlCarrelloLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="modalAggiuntaAlCarrelloLabel">Aggiunto al carrello</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="card mb-3" style="max-width: 540px;">
+                            <div class="row no-gutters">
+                            <div class="col-md-4">
+                                <div id="posterAcquisto">
+
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h3 id="titoloAcquisto">
+
+                                    </h3>
+                                <p class="card-text" id="card-text"></p>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary"  data-dismiss="modal" onclick="window.location.assign('../../pagineDelSito/cliente/carrello_cliente.html');">Vai al carrello</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <!-- MODAL MOSTRO NEGOZI CHE VENDONO IL FILM -->
+            <div class="modal fade" id="modalCompra" tabindex="1" aria-labelledby="modalCompraLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="modalCompraLabel">Scegli il Negozio</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="card mb-3" style="max-width: 540px;">
+                                <div class="card-body" id="listaNegoziVendita">
+                                </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+        </div>
+                
+
+        <!-- Script -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"  crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+        <!-- SCRIPT -->
+        <!-- JQUERY -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script src="../../javascript/cliente/inComune_cliente.js"></script> 
+        <script src="../../javascript/cliente/cerca_cliente.js"></script> 
+    </body>
+</html>
