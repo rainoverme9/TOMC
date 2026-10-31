@@ -4,6 +4,12 @@ TOMC is a university web application developed for the **Web and Cloud Applicati
 
 The application provides two role-specific interfaces and combines movie discovery with storefront management and simulated transactions.
 
+## Live Demo
+
+[**Launch TOMC — The Online Movie Catalog**](https://rainoverme9.github.io/TOMC/site/accedi.html)
+
+Explore the application through its Customer and Retailer interfaces.
+
 ## Features
 
 ### Customer
