@@ -42,7 +42,7 @@ The repository contains the website source code, styles, scripts, and local imag
 
 ## Documentation
 
-The full project report and interface walkthrough are available in the [docs/](docs/) directory.
+The full project report and interface walkthrough are available in the [Project Presentation](docs/TOMC.pdf).
 
 ## Running the Project
 
